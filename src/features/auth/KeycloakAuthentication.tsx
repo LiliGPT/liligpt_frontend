@@ -3,10 +3,16 @@ import Keycloak from 'keycloak-js';
 import { useEffect, useState } from 'react';
 import { memento } from '../../storage';
 
+console.log('Keycloak options', {
+  url: process.env.REACT_APP_KEYCLOAK_URL,
+  realm: process.env.REACT_APP_KEYCLOAK_REALM,
+  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+});
+
 const keycloak = new Keycloak({
-  url: 'https://ec2-34-205-134-224.compute-1.amazonaws.com:28081/auth',
-  realm: 'liligpt',
-  clientId: 'account',
+  url: process.env.REACT_APP_KEYCLOAK_URL!,
+  realm: process.env.REACT_APP_KEYCLOAK_REALM!,
+  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
 });
 
 export const KeycloakAuthentication = ({ children }: any) => {

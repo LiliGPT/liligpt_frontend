@@ -1,12 +1,18 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const DefinePlugin = require("webpack/lib/DefinePlugin");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const publicPath = process.env.APP_PUBLIC_URL || "http://localhost:28090/";
+console.log(`webpack publicPath: ${publicPath}`);
 
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
     // publicPath: "http://localhost:28090/",
+    publicPath,
     filename: 'mf2.js',
-    publicPath: "http://localhost:28090/",
   },
 
   resolve: {
@@ -43,6 +49,9 @@ module.exports = (_, argv) => ({
   },
 
   plugins: [
+    new DefinePlugin({
+      'process.env': JSON.stringify(getReactAppEnv()),
+    }),
     new ModuleFederationPlugin({
       name: "mf2",
       filename: "remoteEntry.js",
@@ -85,3 +94,20 @@ module.exports = (_, argv) => ({
     }),
   ],
 });
+
+
+// Returns only the process.env environment variables that starts with "REACT_APP_"
+function getReactAppEnv() {
+  // Create an empty object to store the results
+  let result = {};
+  // Loop through the keys of process.env
+  for (let key in process.env) {
+    // Check if the key starts with "REACT_APP_"
+    if (key.startsWith("REACT_APP_")) {
+      // Add the key and value to the result object
+      result[key] = process.env[key];
+    }
+  }
+  // Return the result object
+  return result;
+}

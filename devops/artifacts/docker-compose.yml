@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  # serve the static html/js app from dist
+  app:
+    image: nginx:alpine
+    container_name: app
+    restart: always
+    ports:
+      - 28090:80
+    volumes:
+      - ./dist:/usr/share/nginx/html
