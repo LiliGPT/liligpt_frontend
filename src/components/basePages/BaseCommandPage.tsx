@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Container, Icon, IconButton, Toolbar, Typography } from "@mui/material"
 import { Link } from 'react-router-dom';
-import { routeMap } from '../../lib/routeMap';
+import { routeMap } from '../../router/routeMap';
 import BackIcon from '@mui/icons-material/ArrowBack';
 
 type Props = {

@@ -48,7 +48,7 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        './App': './src/App',
+        './App': './src/app/App',
       },
       shared: {
         // recently installed: react-router-dom localforage match-sorter sort-by

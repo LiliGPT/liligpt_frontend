@@ -12,7 +12,7 @@ const createPackageJsonFormSchema = z.object({
 
 type FormSchema = z.infer<typeof createPackageJsonFormSchema>;
 
-export const CreatePackageJsonPage = (): JSX.Element => {
+export const CreatePackageJsonPage = React.forwardRef((): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -48,4 +48,4 @@ export const CreatePackageJsonPage = (): JSX.Element => {
       </>
     </BaseCommandPage>
   );
-};
+});

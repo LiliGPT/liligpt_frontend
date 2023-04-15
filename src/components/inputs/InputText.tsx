@@ -6,7 +6,7 @@ type InputTextProps = {
   [key: string]: any;
 };
 
-export const InputText = ({ label, ...rest }: InputTextProps) => {
+export const InputText = React.forwardRef(({ label, ...rest }: InputTextProps, ref) => {
   const onKeyPress = 'onSubmit' in rest ? (e: any) => {
     if (e.key === "Enter") {
       rest.onSubmit(e);
@@ -18,6 +18,8 @@ export const InputText = ({ label, ...rest }: InputTextProps) => {
       label={label}
       variant="outlined"
       fullWidth
+      // ref
+      ref={ref as any}
       // disable auto complete
       autoComplete="off"
       // static label position
@@ -29,4 +31,4 @@ export const InputText = ({ label, ...rest }: InputTextProps) => {
       {...rest}
     />
   );
-};
+});

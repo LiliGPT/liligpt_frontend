@@ -2,11 +2,19 @@ import React from "react";
 import {
   createBrowserRouter,
 } from "react-router-dom";
-import { HomePage } from "./pages/Home/HomePage";
-import { CreatePackageJsonPage } from "./pages/commands/PackageJson/CreatePackageJsonPage";
-import { routeMap } from "./lib/routeMap";
+import { HomePage } from "../pages/Home/HomePage";
+import { routeMap } from "./routeMap";
+import { commandsRoutes } from "../features/commands/routes";
 
+// Add all route paths in routeMap
+export { routeMap };
+
+// Create routes
 export const appRouter = createBrowserRouter([
+  {
+    path: routeMap.home,
+    element: <HomePage />,
+  },
   // vscode starts the application calling this:
   // /index.html?
   //     id=a5e77028-1a17-495b-a18d-e68087e39cda
@@ -18,15 +26,8 @@ export const appRouter = createBrowserRouter([
   //   & parentOrigin=vscode-file%3A%2F%2Fvscode-app
   //   & remoteAuthority=wsl%2Bubuntu
   {
-    path: routeMap.home,
-    element: <HomePage />,
-  },
-  {
     path: routeMap.vscodeHome,
     element: <HomePage />,
   },
-  {
-    path: routeMap.createPackageJson,
-    element: <CreatePackageJsonPage />,
-  },
+  ...commandsRoutes,
 ]);

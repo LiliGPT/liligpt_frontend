@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import CustomCard from './CustomCard';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
-import { routeMap } from '../../lib/routeMap';
+import { routeMap } from '../../router/routeMap';
 
 interface CardData {
   bgImageUrl: string;
@@ -39,7 +39,7 @@ const HomeCardList = () => {
               <CustomCard
                 bgImageUrl={card.bgImageUrl}
                 label={card.label}
-                onClick={() => {}}
+                onClick={() => { }}
               />
             </Link>
           </Grid>
