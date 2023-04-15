@@ -6,6 +6,7 @@ import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material"
 import { appTheme } from "./lib/theme";
 import { RouterProvider } from "react-router-dom";
 import { appRouter } from "./router";
+import { KeycloakAuthentication } from "./components/auth/KeycloakAuthentication";
 
 const App = ({ vscode }: any) => {
   return (
@@ -13,7 +14,9 @@ const App = ({ vscode }: any) => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={appTheme}>
           <CssBaseline />
-          <RouterProvider router={appRouter} />
+          <KeycloakAuthentication>
+            <RouterProvider router={appRouter} />
+          </KeycloakAuthentication>
         </ThemeProvider>
       </StyledEngineProvider>
     </React.StrictMode>
