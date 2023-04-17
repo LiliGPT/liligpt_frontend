@@ -11,6 +11,9 @@
 #  DEV_SERVER_KEY='/home/username/.ssh/privatekey.pem'
 #  DEV_SERVER_DEPLOY_DIR='/home/username/liligptfront'
 #  APP_PUBLIC_URL='http://remoteip:28090/'
+#  REACT_APP_KEYCLOAK_URL='https://mykeycloak:8081/auth'
+#  REACT_APP_KEYCLOAK_REALM=''
+#  REACT_APP_KEYCLOAK_CLIENT_ID='account'
 # 
 # 2.
 # then run:
