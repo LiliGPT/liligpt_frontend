@@ -33,7 +33,8 @@ export const KeycloakAuthentication = ({ children }: any) => {
           console.log('No token found, initializing Keycloak');
           keycloak.init({
             onLoad: 'login-required',
-            checkLoginIframe: false,
+            checkLoginIframe: true,
+            useNonce: false,
             // checkLoginIframe: false,
           }).then((authenticated) => {
             console.log('Keycloak initialized', authenticated);
