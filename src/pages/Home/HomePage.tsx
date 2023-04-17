@@ -1,17 +1,9 @@
 import React, { useEffect } from "react";
 import HomeCardList from "./HomeCardList";
 import MessageSender from "./MessageSender";
-import { useKeycloak } from "@react-keycloak/web";
+import { BasePage } from "../../components/basePages/BasePage";
 
 export const HomePage = (): JSX.Element => {
-  const { keycloak } = useKeycloak();
-
-  const isLoggedIn = keycloak.authenticated;
-
-  if (!isLoggedIn) {
-    return <div>Not logged in</div>;
-  }
-  
   // TODO: refactor this
   useEffect(() => {
     window.addEventListener("message", (event) => {
@@ -20,7 +12,7 @@ export const HomePage = (): JSX.Element => {
   }, []);
 
   return (
-    <>
+    <BasePage>
       <div className="mt-10 text-3xl mx-auto max-w-6xl px-4">
         <MessageSender />
         <br />
@@ -29,6 +21,6 @@ export const HomePage = (): JSX.Element => {
       <div className="mt-10">
         <HomeCardList />
       </div>
-    </>
+    </BasePage>
   );
 };

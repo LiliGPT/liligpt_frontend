@@ -4,7 +4,7 @@ const DefinePlugin = require("webpack/lib/DefinePlugin");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const publicPath = process.env.APP_PUBLIC_URL || "http://localhost:28090/";
+const publicPath = `${process.env.REACT_APP_PUBLIC_URL || "http://localhost:28090"}/`;
 console.log(`webpack publicPath: ${publicPath}`);
 
 const deps = require("./package.json").dependencies;
@@ -61,7 +61,7 @@ module.exports = (_, argv) => ({
       },
       shared: {
         // recently installed: react-router-dom localforage match-sorter sort-by
-        ...deps,
+        // ...deps,
         react: {
           singleton: true,
           requiredVersion: deps.react,
@@ -87,6 +87,14 @@ module.exports = (_, argv) => ({
           singleton: true,
           requiredVersion: deps["@emotion/styled"],
         },
+        // "oidc-client-ts": {
+        //   singleton: true,
+        //   requiredVersion: "2.2.2",
+        // },
+        // "react-oidc-context": {
+        //   singleton: true,
+        //   requiredVersion: "2.2.2",
+        // },
       },
     }),
     new HtmlWebPackPlugin({
