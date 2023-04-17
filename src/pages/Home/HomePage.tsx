@@ -1,11 +1,19 @@
 import React, { useEffect } from "react";
 import HomeCardList from "./HomeCardList";
 import MessageSender from "./MessageSender";
+import { useKeycloak } from "@react-keycloak/web";
 
 export const HomePage = (): JSX.Element => {
+  const { keycloak } = useKeycloak();
+
+  const isLoggedIn = keycloak.authenticated;
+
+  if (!isLoggedIn) {
+    return <div>Not logged in</div>;
+  }
+  
   // TODO: refactor this
   useEffect(() => {
-
     window.addEventListener("message", (event) => {
       console.log("message from extension to webview", event.data);
     });

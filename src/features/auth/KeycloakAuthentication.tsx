@@ -3,17 +3,7 @@ import Keycloak from 'keycloak-js';
 import { useEffect, useState } from 'react';
 import { memento } from '../../storage';
 
-console.log('Keycloak options', {
-  url: process.env.REACT_APP_KEYCLOAK_URL,
-  realm: process.env.REACT_APP_KEYCLOAK_REALM,
-  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID,
-});
 
-const keycloak = new Keycloak({
-  url: process.env.REACT_APP_KEYCLOAK_URL!,
-  realm: process.env.REACT_APP_KEYCLOAK_REALM!,
-  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
-});
 
 export const KeycloakAuthentication = ({ children }: any) => {
   const [loginError, setLoginError] = useState<string>('');
@@ -34,7 +24,9 @@ export const KeycloakAuthentication = ({ children }: any) => {
           keycloak.init({
             onLoad: 'login-required',
             checkLoginIframe: true,
-            useNonce: false,
+            // useNonce: false,
+            pkceMethod: undefined,
+            flow: 'implicit',
             // checkLoginIframe: false,
           }).then((authenticated) => {
             console.log('Keycloak initialized', authenticated);

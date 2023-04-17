@@ -5,9 +5,10 @@ import { Provider } from "react-redux";
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { appTheme } from "./theme";
 import { appRouter } from "../router";
-import { KeycloakAuthentication } from "../features/auth/KeycloakAuthentication";
 import "./index.scss";
 import { store } from "./store";
+import { keycloakInstance } from "../features/auth/keycloak";
+import { AuthProvider } from "react-oidc-context";
 
 const App = ({ vscode }: any) => {
   return (
@@ -16,9 +17,13 @@ const App = ({ vscode }: any) => {
         <ThemeProvider theme={appTheme}>
           <CssBaseline />
           <Provider store={store}>
-            <KeycloakAuthentication>
+            <AuthProvider
+              authority={process.env.REACT_APP_KEYCLOAK_URL}
+              client_id={process.env.REACT_APP_KEYCLOAK_CLIENT_ID}
+              redirect_uri="http://localhost:3000"
+            >
               <RouterProvider router={appRouter} />
-            </KeycloakAuthentication>
+            </AuthProvider>
           </Provider>
         </ThemeProvider>
       </StyledEngineProvider>
