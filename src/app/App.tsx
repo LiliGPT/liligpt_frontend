@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -15,24 +15,43 @@ import { keycloakInstance } from "../features/auth/keycloak";
 import { AuthProvider, AuthProviderUserManagerProps } from "react-oidc-context";
 import { UserManager } from "oidc-client-ts";
 
-const userManager = new UserManager({
-  // authority: process.env.REACT_APP_KEYCLOAK_URL!,
-  // client_id: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
-  authority: `${process.env.REACT_APP_KEYCLOAK_URL}/auth/realms/${process.env.REACT_APP_KEYCLOAK_REALM}/`,
-  client_id: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
-  redirect_uri: process.env.REACT_APP_PUBLIC_URL || "http://localhost:28090",
-});
+const defaultAuthorityUrl = `${process.env.REACT_APP_KEYCLOAK_URL}/auth/realms/${process.env.REACT_APP_KEYCLOAK_REALM}/`;
 
-const App = ({ vscode }: any) => {
+interface AppProps {
+  authorityUrl?: string;
+  vscode: {
+    postMessage: (message: any) => void;
+  };
+}
+
+const App = ({ vscode, authorityUrl=defaultAuthorityUrl }: AppProps) => {
+  const [userManager, setUserManager] = useState<UserManager | undefined>();
+
+  useEffect(() => {
+    console.log(`App authorityUrl: ${authorityUrl}`);
+    const _userManager = new UserManager({
+      // authority: process.env.REACT_APP_KEYCLOAK_URL!,
+      // client_id: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
+      authority: authorityUrl,
+      client_id: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,
+      redirect_uri: process.env.REACT_APP_PUBLIC_URL || "http://localhost:28090",
+    });
+    setUserManager(_userManager);
+  }, []);
+
   return (
     <React.StrictMode>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={appTheme}>
           <CssBaseline />
           <Provider store={store}>
-            <AuthProvider userManager={userManager}>
-              <RouterProvider router={appRouter} />
-            </AuthProvider>
+            {!!userManager ? (
+              <AuthProvider userManager={userManager}>
+                <RouterProvider router={appRouter} />
+              </AuthProvider>
+            ) : (
+              <div>loading authority configuration...</div>
+            )}
           </Provider>
         </ThemeProvider>
       </StyledEngineProvider>
