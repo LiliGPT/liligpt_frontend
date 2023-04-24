@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
-import HomeCardList from "./HomeCardList";
-import MessageSender from "./MessageSender";
-import { BasePage } from "../../components/basePages/BasePage";
+import { vscodeClient } from "../../features/vscode/vscodeClient";
 
 export const HomePage = (): JSX.Element => {
-  // TODO: refactor this
-  useEffect(() => {
-    window.addEventListener("message", (event) => {
-      console.log("message from extension to webview", event.data);
-    });
-  }, []);
+  const onClick = () => {
+    // window.open do not work in sandboxed iframe
+    // window.open("https://www.google.com", "_blank");
+    console.log('[frontend] onCLick login!!!');
+    vscodeClient.login();
+  };
 
   return (
-    <BasePage>
-      <div className="mt-10 text-3xl mx-auto max-w-6xl px-4">
-        <MessageSender />
-        <br />
-        <h4>Choose an Action</h4>
-      </div>
-      <div className="mt-10">
-        <HomeCardList />
-      </div>
-    </BasePage>
+    <div>
+      <h1>Home Page</h1>
+      <button onClick={onClick}>click to login</button>
+    </div>
   );
 };

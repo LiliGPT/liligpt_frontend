@@ -14,14 +14,13 @@ import { store } from "./store";
 import { keycloakInstance } from "../features/auth/keycloak";
 import { AuthProvider, AuthProviderUserManagerProps } from "react-oidc-context";
 import { UserManager } from "oidc-client-ts";
+import { vscodeClient } from "../features/vscode/vscodeClient";
 
 const defaultAuthorityUrl = `${process.env.REACT_APP_KEYCLOAK_URL}/auth/realms/${process.env.REACT_APP_KEYCLOAK_REALM}/`;
 
 interface AppProps {
   authorityUrl?: string;
-  vscode: {
-    postMessage: (message: any) => void;
-  };
+  vscode: VSCodeAPI;
 }
 
 const App = ({ vscode, authorityUrl=defaultAuthorityUrl }: AppProps) => {
@@ -29,6 +28,8 @@ const App = ({ vscode, authorityUrl=defaultAuthorityUrl }: AppProps) => {
 
   useEffect(() => {
     console.log(`App authorityUrl: ${authorityUrl}`);
+    console.log(`vscode: `, vscode);
+    vscodeClient.setVscode(vscode);
     const _userManager = new UserManager({
       // authority: process.env.REACT_APP_KEYCLOAK_URL!,
       // client_id: process.env.REACT_APP_KEYCLOAK_CLIENT_ID!,

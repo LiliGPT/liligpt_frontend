@@ -2,7 +2,7 @@ import React from "react";
 import {
   createBrowserRouter,
 } from "react-router-dom";
-import { HomePage } from "../pages/Home/HomePage";
+import { HomePage } from "../pages/Home/HomePage.backup";
 import { routeMap } from "./routeMap";
 import { commandsRoutes } from "../features/commands/routes";
 
