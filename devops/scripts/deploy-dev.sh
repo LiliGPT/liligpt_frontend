@@ -58,7 +58,8 @@ function main() {
     "cd '$DEV_SERVER_DEPLOY_DIR' && docker compose up -d --force-recreate" || \
     die "Failed to restart the container"
   echo ""
-  echo "Open: http://$DEV_SERVER_IP:28090"
+  # echo "Open: http://$DEV_SERVER_IP:28090"
+  echo "Open: $REACT_APP_PUBLIC_URL"
   echo ""
   echo "Done!"
 }
@@ -66,6 +67,9 @@ function main() {
 function build_app() {
   local ROOT="$1"
   local DIST="$2"
+
+  echo "Removing old dist"
+  rm -rf "$DIST" || return 1
 
   echo "Building the app"
   cd "$ROOT"

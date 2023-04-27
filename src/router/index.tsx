@@ -2,12 +2,16 @@ import React from "react";
 import {
   createBrowserRouter,
 } from "react-router-dom";
-import { HomePage } from "../pages/Home/HomePage.backup";
-import { routeMap } from "./routeMap";
-import { commandsRoutes } from "../features/commands/routes";
+import { HomePage } from "../pages/Home/HomePage";
+// import { commandsRoutes } from "../features/commands/routes";
 
 // Add all route paths in routeMap
-export { routeMap };
+export const routeMap = {
+  home: "/",
+  vscodeHome: "/index.html",
+  createPackageJson: "/commands/PackageJson/CreatePackageJson",
+};
+
 
 // Create routes
 export const appRouter = createBrowserRouter([
@@ -29,5 +33,5 @@ export const appRouter = createBrowserRouter([
     path: routeMap.vscodeHome,
     element: <HomePage />,
   },
-  ...commandsRoutes,
+  // ...commandsRoutes,
 ]);

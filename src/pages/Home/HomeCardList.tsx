@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import CustomCard from './CustomCard';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
-import { routeMap } from '../../router/routeMap';
+import { routeMap } from '../../router';
 
 interface CardData {
   bgImageUrl: string;

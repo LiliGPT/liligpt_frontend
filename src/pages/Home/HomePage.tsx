@@ -11,8 +11,8 @@ export const HomePage = (): JSX.Element => {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <button onClick={onClick}>click to login</button>
+      <h1>Home</h1>
+      <button onClick={onClick}>click to login using vscode</button>
     </div>
   );
 };
