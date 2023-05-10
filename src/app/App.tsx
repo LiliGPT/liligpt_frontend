@@ -23,6 +23,20 @@ const App = ({ vscode }: AppProps) => {
   useEffect(() => {
     console.log(`vscode: `, vscode);
     vscodeClient.setVscode(vscode);
+
+    function onMessageFromVscode(event: MessageEvent<any>) {
+      console.log(`[frontend] onMessageFromVscode: `, event);
+      if (event.data.type === 'vscode-webview:auth') {
+        console.log('[frontend] we received LOGIN!!!', event.data.payload);
+      }
+    }
+
+    // messages from vscode
+    window.addEventListener("message", onMessageFromVscode);
+
+    return () => {
+      window.removeEventListener("message", onMessageFromVscode);
+    };
   }, []);
 
   return (
